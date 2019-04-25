@@ -80,6 +80,7 @@ public class MediaDataAccessService implements MediaCatalogDao  {
                                 updateMediaCatalog.getGenre(),
                                 updateMediaCatalog.getPublishingDate()));
                     }
+
                     this.mediaCatalogRepository.save(new MediaCatalog(id,
                             updateMediaCatalog.getTimestamp(),
                             updateMediaCatalog.getCreatedUserID(),
