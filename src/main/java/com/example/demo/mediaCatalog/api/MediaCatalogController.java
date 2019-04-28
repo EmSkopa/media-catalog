@@ -1,7 +1,7 @@
-package com.example.demo.api;
+package com.example.demo.mediaCatalog.api;
 
-import com.example.demo.model.MediaCatalog;
-import com.example.demo.service.MediaCatalogService;
+import com.example.demo.mediaCatalog.model.MediaCatalog;
+import com.example.demo.mediaCatalog.service.MediaCatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

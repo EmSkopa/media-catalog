@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.mediaCatalog.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.Contract;

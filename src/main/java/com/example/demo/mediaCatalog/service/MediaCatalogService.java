@@ -1,7 +1,7 @@
-package com.example.demo.service;
+package com.example.demo.mediaCatalog.service;
 
-import com.example.demo.dao.MediaCatalogDao;
-import com.example.demo.model.MediaCatalog;
+import com.example.demo.mediaCatalog.dao.MediaCatalogDao;
+import com.example.demo.mediaCatalog.model.MediaCatalog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

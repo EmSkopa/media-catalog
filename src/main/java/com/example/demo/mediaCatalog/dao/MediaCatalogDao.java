@@ -1,8 +1,6 @@
-package com.example.demo.dao;
+package com.example.demo.mediaCatalog.dao;
 
-import com.example.demo.model.MediaCatalog;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import com.example.demo.mediaCatalog.model.MediaCatalog;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
-package com.example.demo.dao;
+package com.example.demo.mediaCatalog.dao;
 
-import com.example.demo.model.MediaCatalog;
+import com.example.demo.mediaCatalog.model.MediaCatalog;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
