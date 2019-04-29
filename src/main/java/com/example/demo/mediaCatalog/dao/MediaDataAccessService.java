@@ -1,12 +1,10 @@
 package com.example.demo.mediaCatalog.dao;
 
 import com.example.demo.mediaCatalog.model.MediaCatalog;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository("embeddedDb")
@@ -167,7 +165,8 @@ public class MediaDataAccessService implements MediaCatalogDao  {
     }
 
     @Override
-    public List<MediaCatalog> findSearch(String genre, String country, String artist, String media, String publisher) {
+    public List<MediaCatalog> findSearch(String genre, String country, String artist, String media,
+                                         String publisher, String sort, Integer dir) {
         if(DB.isEmpty())
             DB = this.mediaCatalogRepository.findAll();
 
@@ -175,27 +174,58 @@ public class MediaDataAccessService implements MediaCatalogDao  {
 
         if(genre != null && !genre.isEmpty())
             findmatches = findmatches.stream()
-                .filter(_mediaCatalog -> _mediaCatalog.getGenre().equals(genre))
+                .filter(_mediaCatalog -> _mediaCatalog.getGenre().contains(genre))
                 .collect(Collectors.toList());
         if(country != null && !country.isEmpty())
             findmatches = findmatches.stream()
-                    .filter(_mediaCatalog -> _mediaCatalog.getOriginatingCountry().equals(country))
+                    .filter(_mediaCatalog -> _mediaCatalog.getOriginatingCountry().contains(country))
                     .collect(Collectors.toList());
 
         if(artist != null && !artist.isEmpty())
             findmatches = findmatches.stream()
-                    .filter(_mediaCatalog -> _mediaCatalog.getArtistName().equals(artist))
+                    .filter(_mediaCatalog -> _mediaCatalog.getArtistName().contains(artist))
                     .collect(Collectors.toList());
 
         if(media != null && !media.isEmpty())
             findmatches = findmatches.stream()
-                    .filter(_mediaCatalog -> _mediaCatalog.getMediaName().equals(media))
+                    .filter(_mediaCatalog -> _mediaCatalog.getMediaName().contains(media))
                     .collect(Collectors.toList());
 
         if(publisher != null && !publisher.isEmpty())
             findmatches = findmatches.stream()
-                    .filter(_mediaCatalog -> _mediaCatalog.getPublisher().equals(publisher))
+                    .filter(_mediaCatalog -> _mediaCatalog.getPublisher().contains(publisher))
                     .collect(Collectors.toList());
+
+        if(sort == "id"){
+            if(dir == -1)
+                findmatches.sort(Comparator.comparing(MediaCatalog::getId).reversed());
+            else
+                findmatches.sort(Comparator.comparing(MediaCatalog::getId));
+        }
+        else if(sort == "media"){
+            if(dir == -1)
+                findmatches.sort(Comparator.comparing(MediaCatalog::getMediaName).reversed());
+            else
+                findmatches.sort(Comparator.comparing(MediaCatalog::getMediaName));
+        }
+        else if(sort == "artist"){
+            if(dir == -1)
+                findmatches.sort(Comparator.comparing(MediaCatalog::getArtistName).reversed());
+            else
+                findmatches.sort(Comparator.comparing(MediaCatalog::getArtistName));
+        }
+        else if(sort == "country"){
+            if(dir == -1)
+                findmatches.sort(Comparator.comparing(MediaCatalog::getOriginatingCountry).reversed());
+            else
+                findmatches.sort(Comparator.comparing(MediaCatalog::getOriginatingCountry));
+        }
+        else if(sort == "publisher"){
+            if(dir == -1)
+                findmatches.sort(Comparator.comparing(MediaCatalog::getPublisher).reversed());
+            else
+                findmatches.sort(Comparator.comparing(MediaCatalog::getPublisher));
+        }
 
         return findmatches;
     }
