@@ -2,8 +2,12 @@ package com.example.demo.mediaCatalog.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.Contract;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -14,8 +18,11 @@ public class MediaCatalog {
 
     @Id
     private final UUID id;
+    @CreatedDate
     private final Timestamp timestamp;
+    @CreatedBy
     private final String createdUserID;
+    @LastModifiedBy
     private final String updatedUserID;
 
     private final String mediaName;

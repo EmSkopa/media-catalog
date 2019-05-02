@@ -1,8 +1,6 @@
 package com.example.demo.mediaCatalog.dao;
 
 import com.example.demo.mediaCatalog.model.MediaCatalog;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 import java.util.Optional;

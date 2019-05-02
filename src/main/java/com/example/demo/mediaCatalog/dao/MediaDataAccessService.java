@@ -1,7 +1,6 @@
 package com.example.demo.mediaCatalog.dao;
 
 import com.example.demo.mediaCatalog.model.MediaCatalog;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -11,19 +10,23 @@ import java.util.stream.Collectors;
 public class MediaDataAccessService implements MediaCatalogDao  {
 
     private MediaCatalogRepository mediaCatalogRepository;
-    private static List<MediaCatalog> DB = new ArrayList<>();
 
+    private static List<MediaCatalog> DB = new ArrayList<>();
     public MediaDataAccessService(MediaCatalogRepository mediaCatalogRepository) {
         this.mediaCatalogRepository = mediaCatalogRepository;
     }
 
     @Override
     public int insertMedia(UUID id, MediaCatalog newMedia) {
+        if(DB.isEmpty())
+            DB = this.mediaCatalogRepository.findAll();
+
         DB.add(new MediaCatalog(id, newMedia.getTimestamp(), newMedia.getCreatedUserID(),
                                     newMedia.getUpdatedUserID(), newMedia.getMediaName(), newMedia.getArtistName(),
                                     newMedia.getPublisher(), newMedia.getOriginatingCountry(), newMedia.getGenre(),
                                     newMedia.getPublishingDate()));
         this.mediaCatalogRepository.saveAll(DB);
+
         return 1;
     }
 

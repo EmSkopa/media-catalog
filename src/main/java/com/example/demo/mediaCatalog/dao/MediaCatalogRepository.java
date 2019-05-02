@@ -4,11 +4,8 @@ import com.example.demo.mediaCatalog.model.MediaCatalog;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.UUID;
 
