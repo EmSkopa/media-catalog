@@ -6,3 +6,8 @@ spring:
       host: localhost
       port: 27017
       database: embeddedDb
+    elasticsearch:
+      cluster-name: elastic-search
+      repositories:
+        enabled: true
+      cluster-nodes: localhost:9300
