@@ -2,17 +2,21 @@ package com.example.demo.mediaCatalog.dao;
 
 import com.example.demo.mediaCatalog.model.MediaCatalog;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface MediaCatalogDao{
 
-    int insertMedia(UUID id, MediaCatalog newMedia);
+    int insertMedia(UUID id, LocalDateTime timestamp, String cUserID, String uUserID, MediaCatalog newMedia);
 
     default int insertMedia(MediaCatalog _newMedia) {
         UUID _id = UUID.randomUUID();
-        return insertMedia(_id, _newMedia);
+        LocalDateTime _timestamp = LocalDateTime.now();
+        String _cUserID = _id.toString();
+        String _uUserID = _id.toString();
+        return insertMedia(_id, _timestamp, _cUserID, _uUserID, _newMedia);
     }
 
     List<MediaCatalog> selectAllMedia();

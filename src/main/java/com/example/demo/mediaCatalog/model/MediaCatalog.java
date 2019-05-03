@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Document(collection = "mediaCatalog")
@@ -19,7 +21,7 @@ public class MediaCatalog {
     @Id
     private final UUID id;
     @CreatedDate
-    private final Timestamp timestamp;
+    private final LocalDateTime timestamp;
     @CreatedBy
     private final String createdUserID;
     @LastModifiedBy
@@ -30,12 +32,12 @@ public class MediaCatalog {
     private final String publisher;
     private final String originatingCountry;
     private final String genre;
-    private final DateFormat publishingDate;
+    private final LocalDate publishingDate;
 
 
     @Contract(pure = true)
     public MediaCatalog(@JsonProperty("id") UUID id,
-                        @JsonProperty("timestamp") Timestamp timestamp,
+                        @JsonProperty("timestamp") LocalDateTime timestamp,
                         @JsonProperty("createdUserID") String createdUserID,
                         @JsonProperty("updatedUserID") String updatedUserID,
                         @JsonProperty("mediaName") String mediaName,
@@ -43,7 +45,7 @@ public class MediaCatalog {
                         @JsonProperty("publisher") String publisher,
                         @JsonProperty("originatingCountry") String originatingCountry,
                         @JsonProperty("genre") String genre,
-                        @JsonProperty("publishingDate") DateFormat publishingDate) {
+                        @JsonProperty("publishingDate") LocalDate publishingDate) {
         this.id = id;
         this.timestamp = timestamp;
         this.createdUserID = createdUserID;
@@ -56,7 +58,7 @@ public class MediaCatalog {
         this.publishingDate = publishingDate;
     }
 
-    public Timestamp getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
@@ -80,7 +82,7 @@ public class MediaCatalog {
         return originatingCountry;
     }
 
-    public DateFormat getPublishingDate() {
+    public LocalDate getPublishingDate() {
         return publishingDate;
     }
 
