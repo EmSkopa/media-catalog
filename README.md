@@ -1,4 +1,4 @@
-# media-catalog
+# Media Catalog
 Test project for media catalog on Java
 
 # Postman collection and API documentation
