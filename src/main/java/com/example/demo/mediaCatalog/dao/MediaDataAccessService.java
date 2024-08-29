@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 @Repository("embeddedDb")
 public class MediaDataAccessService implements MediaCatalogDao  {
 
-    private MediaCatalogRepository mediaCatalogRepository;
-    private EsMediaCatalogRepository esMediaCatalogRepository;
+    private final MediaCatalogRepository mediaCatalogRepository;
+    private final EsMediaCatalogRepository esMediaCatalogRepository;
 
     private static List<MediaCatalog> DB = new ArrayList<>();
     private static List<EsMediaCatalog> DB2 = new ArrayList<>();

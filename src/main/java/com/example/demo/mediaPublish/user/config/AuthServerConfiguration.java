@@ -5,44 +5,46 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class AuthServerConfiguration extends WebSecurityConfigurerAdapter implements AuthorizationServerConfigurer {
-
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-
-        return super.authenticationManagerBean();
-    }
-
-    @Autowired
-    AuthenticationManager authManager;
-
-    private PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+public class AuthServerConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
 
+        http.authorizeRequests().anyRequest().authenticated()
+            .and()
+            .httpBasic();
     }
 
-    @Override
-    public void configure(ClientDetailsServiceConfigurer client) throws Exception {
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+        UserDetails user = User.withUsername("user")
+            .password(passwordEncoder.encode("password"))
+            .roles("USER")
+            .build();
 
-        client.inMemory().withClient("emir").secret(passwordEncoder.encode("emirpass")).scopes("READ", "WRITE").authorizedGrantTypes("password", "authorization_code");
+        UserDetails admin = User.withUsername("admin")
+            .password(passwordEncoder.encode("admin"))
+            .roles("USER", "ADMIN")
+            .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoint) throws Exception {
-
-        endpoint.authenticationManager(authManager);
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
