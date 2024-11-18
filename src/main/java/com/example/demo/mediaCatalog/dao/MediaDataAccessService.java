@@ -1,8 +1,6 @@
 package com.example.demo.mediaCatalog.dao;
 
-import com.example.demo.mediaCatalog.dao.esdao.EsMediaCatalogRepository;
 import com.example.demo.mediaCatalog.model.MediaCatalog;
-import com.example.demo.mediaCatalog.model.es.EsMediaCatalog;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -13,13 +11,10 @@ import java.util.stream.Collectors;
 public class MediaDataAccessService implements MediaCatalogDao  {
 
     private final MediaCatalogRepository mediaCatalogRepository;
-    private final EsMediaCatalogRepository esMediaCatalogRepository;
 
     private static List<MediaCatalog> DB = new ArrayList<>();
-    private static List<EsMediaCatalog> DB2 = new ArrayList<>();
-    public MediaDataAccessService(MediaCatalogRepository mediaCatalogRepository, EsMediaCatalogRepository esMediaCatalogRepository) {
+    public MediaDataAccessService(MediaCatalogRepository mediaCatalogRepository) {
         this.mediaCatalogRepository = mediaCatalogRepository;
-        this.esMediaCatalogRepository = esMediaCatalogRepository;
     }
 
     @Override
@@ -35,17 +30,7 @@ public class MediaDataAccessService implements MediaCatalogDao  {
                                     newMedia.getGenre(),
                                     newMedia.getPublishingDate()));
 
-        DB2.add(new EsMediaCatalog(id,
-                newMedia.getId(),
-                newMedia.getMediaName(),
-                newMedia.getArtistName(),
-                newMedia.getPublisher(),
-                newMedia.getOriginatingCountry(),
-                newMedia.getGenre(),
-                newMedia.getPublishingDate()));
-
         this.mediaCatalogRepository.saveAll(DB);
-        this.esMediaCatalogRepository.saveAll(DB2);
 
         return 1;
     }

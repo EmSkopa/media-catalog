@@ -11,18 +11,18 @@ import java.util.UUID;
 public class User {
 
     @Id
-    private final UUID _id;
+    private final UUID id;
     private final String userName;
 
     @Contract
-    public User(@JsonProperty("_id") UUID _id,
+    public User(@JsonProperty("id") UUID id,
                 @JsonProperty("userName") String userName) {
-        this._id = _id;
+        this.id = id;
         this.userName = userName;
     }
 
-    public UUID get_id() {
-        return _id;
+    public UUID getId() {
+        return id;
     }
 
     public String getUserName() {
